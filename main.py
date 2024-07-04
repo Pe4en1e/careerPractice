@@ -12,7 +12,10 @@ def root():
 @app.route('/getVacancies')
 def getVacancies():
     name = request.args.get('name')
-    return parser.getVacancies(name=name)
+    exp = request.args.get('experience')
+    sch = request.args.get('schedule')
+
+    return parser.getVacancies(name=name, exp=exp, sch=sch)
 
 if __name__ == '__main__':
     app.run(debug=True, port=8800)
