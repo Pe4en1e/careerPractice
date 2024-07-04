@@ -1,6 +1,7 @@
 
 import requests
 from currency_symbols import CurrencySymbols
+import DataWorker
 
 vacDefaultUrl = 'https://api.hh.ru/vacancies'
 
@@ -21,6 +22,8 @@ def getVacancies(name, sch, exp):
         vacancies = requests.get(vacDefaultUrl, headers=headers, params=params)
 
         vacancies = vacancies.json()
+
+        found = vacancies['found']
 
         items = vacancies['items']
 
@@ -62,6 +65,8 @@ def getVacancies(name, sch, exp):
 
             vacancies.append(vacancy)
 
+        DataWorker.createRecord(name, sch, exp, found)
+
         return vacancies
 
     params = {
@@ -74,6 +79,8 @@ def getVacancies(name, sch, exp):
     vacancies = requests.get(vacDefaultUrl, headers=headers, params=params)
 
     vacancies = vacancies.json()
+
+    found = vacancies['found']
 
     items = vacancies['items']
 
@@ -115,5 +122,7 @@ def getVacancies(name, sch, exp):
         }
 
         vacancies.append(vacancy)
+
+    DataWorker.createRecord(name, sch, exp, found)
 
     return vacancies

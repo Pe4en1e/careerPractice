@@ -1,6 +1,7 @@
 
 from flask import Flask, request
 import parser
+import DataWorker
 
 app = Flask(__name__)
 
@@ -18,4 +19,5 @@ def getVacancies():
     return parser.getVacancies(name=name, exp=exp, sch=sch)
 
 if __name__ == '__main__':
+    DataWorker.createTable()
     app.run(debug=True, port=8800)
