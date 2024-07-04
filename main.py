@@ -18,6 +18,10 @@ def getVacancies():
 
     return parser.getVacancies(name=name, exp=exp, sch=sch)
 
+@app.route('/getStats')
+def getStats():
+    return DataWorker.getMost()
+
 if __name__ == '__main__':
     DataWorker.createTable()
     app.run(debug=True, port=8800)
